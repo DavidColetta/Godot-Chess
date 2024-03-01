@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b624272qxwf5x"]
+
+[ext_resource type="ArrayMesh" uid="uid://c67q1v54rfkj3" path="res://Models/King.tres" id="1_4qpq7"]
+[ext_resource type="Script" path="res://DetectClicked.gd" id="2_jnyxa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82wbx"]
+size = Vector3(3.37218, 9.63084, 3.22789)
+
+[node name="Piece" type="MeshInstance3D"]
+mesh = ExtResource("1_4qpq7")
+
+[node name="Area3D" type="Area3D" parent="."]
+monitoring = false
+monitorable = false
+script = ExtResource("2_jnyxa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71682, 0)
+shape = SubResource("BoxShape3D_82wbx")
