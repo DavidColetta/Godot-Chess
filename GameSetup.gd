@@ -4,8 +4,6 @@ var piece_scene = preload("res://piece.tscn")
 var white_mat = preload("res://ChessWhite.tres")
 var black_mat = preload("res://ChessBlack.tres")
 
-enum PIECE {EMPTY, PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING}
-
 var piece_models = [null]
 
 signal left_clicked(col: int, row: int)
@@ -13,7 +11,7 @@ signal right_clicked(col: int, row: int)
 
 @export var tile_width = 3
 
-var board: Array[Array] = []
+var board: Chess.BoardRep
 
 var _selected_tile: Vector2i
 
@@ -26,13 +24,13 @@ func _ready():
 	piece_models.append(preload("res://Models/Queen.tres"))
 	piece_models.append(preload("res://Models/King.tres"))
 	
+	board = Chess.BoardRepArray.new()
+	
 	for i in range(0, 8):
-		board.append([])
 		for j in range(0, 8):
 			var new_tile = tile_scene.instantiate()
 			new_tile.col = i
 			new_tile.row = j
-			board[i].append(Tile.new())
 			new_tile.scale = Vector3(tile_width, 1, tile_width)
 			if ((i % 2) == (j % 2)):
 				new_tile.material_override = black_mat
@@ -51,16 +49,15 @@ func _get_tile_position(col: int, row: int) -> Vector3:
 	return Vector3(-col*2*tile_width, 0, row*2*tile_width)
 
 #white = False, black = True
-func _spawn_piece(col: int, row: int, piece: PIECE, color: bool):
+func _spawn_piece(col: int, row: int, piece: Chess.PIECE, color: bool):
 	if color: #Invert row if black
 		row = 7 - row
 	
-	var newPiece = PieceObject.new(piece, color)
 	var newPieceObject = piece_scene.instantiate()
-	newPiece.object = newPieceObject
-	board[col][row] = newPiece
+	var newPiece = Chess.PieceObject.new(piece, color, newPieceObject)
+	board.set_tile(col, row, newPiece)
 	newPieceObject.mesh = piece_models[piece]
-	newPieceObject.name = str(PIECE.keys()[piece])
+	newPieceObject.name = str(Chess.PIECE.keys()[piece])
 	if color:
 		newPieceObject.set_surface_override_material(0, black_mat)
 		newPieceObject.name = "BLACK_" + newPieceObject.name
@@ -78,70 +75,43 @@ func _spawn_piece(col: int, row: int, piece: PIECE, color: bool):
 	newPieceObject.set_global_position(_get_tile_position(col, row))
 
 func _setup_board(color: bool):
-	_spawn_piece(0, 0, PIECE.ROOK, color)
-	_spawn_piece(1, 0, PIECE.KNIGHT, color)
-	_spawn_piece(2, 0, PIECE.BISHOP, color)
-	_spawn_piece(3, 0, PIECE.QUEEN, color)
-	_spawn_piece(4, 0, PIECE.KING, color)
-	_spawn_piece(5, 0, PIECE.BISHOP, color)
-	_spawn_piece(6, 0, PIECE.KNIGHT, color)
-	_spawn_piece(7, 0, PIECE.ROOK, color)
+	_spawn_piece(0, 0, Chess.PIECE.ROOK, color)
+	_spawn_piece(1, 0, Chess.PIECE.KNIGHT, color)
+	_spawn_piece(2, 0, Chess.PIECE.BISHOP, color)
+	_spawn_piece(3, 0, Chess.PIECE.QUEEN, color)
+	_spawn_piece(4, 0, Chess.PIECE.KING, color)
+	_spawn_piece(5, 0, Chess.PIECE.BISHOP, color)
+	_spawn_piece(6, 0, Chess.PIECE.KNIGHT, color)
+	_spawn_piece(7, 0, Chess.PIECE.ROOK, color)
 	for i in range(0, 8):
-		_spawn_piece(i, 1, PIECE.PAWN, color)
+		_spawn_piece(i, 1, Chess.PIECE.PAWN, color)
 
 func _select_piece(col: int, row: int):
 	print(col, row)
 	_selected_tile = Vector2i(col, row)
 	
 func _move_selected_piece(col: int, row: int):
-	if _selected_tile and board[_selected_tile.x][_selected_tile.y].is_piece():
+	if _selected_tile and board.get_tile(_selected_tile.x, _selected_tile.y).is_piece():
 		_move(_selected_tile.x, _selected_tile.y, col, row)
 	else:
 		print("No Selected Piece")
 
 func _move (from_col: int, from_row: int, to_col: int, to_row: int):
-	board[from_col][from_row].object.set_global_position(_get_tile_position(to_col, to_row))
-	if board[to_col][to_row].is_piece():
-		board[to_col][to_row].object.queue_free()
-	_move_noanim(board, from_col, from_row, to_col, to_row)
-
-func _move_noanim(boardState, from_col: int, from_row: int, to_col: int, to_row: int):
-	assert(not boardState[from_col][from_row].is_empty())
-	var piece = boardState[from_col][from_row]
-	if boardState[to_col][to_row].is_piece():
-		_capture_piece_noanim(boardState, to_col, to_row)
-	boardState[from_col][from_row] = Tile.new()
-	boardState[to_col][to_row] = piece
+	board.get_tile(from_col, from_row).object.set_global_position(_get_tile_position(to_col, to_row))
+	if board.get_tile(to_col, to_row).is_piece():
+		_capture_piece(to_col, to_row)
+	board.move(from_col, from_row, to_col, to_row)
 
 func _capture_piece(col: int, row: int):
-	_capture_piece_noanim(board, col, row)
-	board[col][row].queue_free()
-
-func _capture_piece_noanim(boardState, col: int, row: int):
-	assert(not boardState[col][row].is_empty())
-	boardState[col][row] = Tile.new()
-
-class Tile:
-	func is_empty():
-		return true
+	board.get_tile(col, row).object.queue_free()
+	board.capture_piece(col, row)
 	
-	func is_piece():
-		return false
 	
-class Piece extends Tile:
-	var color: bool
-	var piece_type: PIECE
-
-	func _init(_type: PIECE, _color: bool):
-		assert(_type != PIECE.EMPTY)
-		piece_type = _type
-		color = _color
-		
-	func is_empty():
-		return false
+func copy_board_state(boardState) -> Array[Array]:
+	var newBoardState: Array[Array] = []
+	for i in range(0, 8):
+		newBoardState.append([])
+		for j in range(0, 8):
+			newBoardState.append(boardState[i][j].copy());
+	return newBoardState
 	
-	func is_piece():
-		return true
-
-class PieceObject extends Piece:
-	var object = null
