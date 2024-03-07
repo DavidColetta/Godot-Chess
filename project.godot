@@ -12,8 +12,13 @@ config_version=5
 
 config/name="Chess"
 run/main_scene="res://root.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Enums="*res://Enums.gd"
+GameSetup="*res://GameSetup.gd"
 
 [filesystem]
 

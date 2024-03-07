@@ -1,18 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://sgfqqurajnx2"]
-
-[ext_resource type="PackedScene" uid="uid://b624272qxwf5x" path="res://piece.tscn" id="1_d3ijy"]
-[ext_resource type="Script" path="res://GameSetup.gd" id="2_2j1xy"]
+[gd_scene format=3 uid="uid://sgfqqurajnx2"]
 
 [node name="Root" type="Node3D"]
 
-[node name="Piece" parent="." instance=ExtResource("1_d3ijy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.2528, 0, 30.0608)
-
-[node name="Node3D" type="Node3D" parent="."]
-script = ExtResource("2_2j1xy")
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, 24, 35, 27)
+transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, -21, 40, 21)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.0280438, 0.999607, 0, -0.999607, -0.0280438, 0, 0, 0)
