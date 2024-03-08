@@ -1,4 +1,4 @@
-extends Area3D
+extends CollisionObject3D
 
 signal left_clicked
 signal right_clicked
@@ -8,14 +8,14 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _mouse_enter():
 	#print("Mouse enter")
 	pass
 
-func _input_event(camera, event, mouse_position, normal, shape_idx):
+func _input_event(_camera, event, _mouse_position, _normal, _shape_idx):
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.get_button_index() == MOUSE_BUTTON_LEFT:
 			print("Clicked "+get_parent().name)

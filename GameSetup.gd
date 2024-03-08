@@ -91,10 +91,11 @@ func _select_piece(col: int, row: int):
 	_selected_tile = Vector2i(col, row)
 	
 func _move_selected_piece(col: int, row: int):
-	if _selected_tile and board.get_tile(_selected_tile.x, _selected_tile.y).is_piece():
+	if _selected_tile.x >= 0 and board.get_tile(_selected_tile.x, _selected_tile.y).is_piece():
 		_move(_selected_tile.x, _selected_tile.y, col, row)
 	else:
 		print("No Selected Piece")
+	_selected_tile = Vector2i(-1, -1)
 
 func _move (from_col: int, from_row: int, to_col: int, to_row: int):
 	board.get_tile(from_col, from_row).object.set_global_position(_get_tile_position(to_col, to_row))
@@ -105,13 +106,4 @@ func _move (from_col: int, from_row: int, to_col: int, to_row: int):
 func _capture_piece(col: int, row: int):
 	board.get_tile(col, row).object.queue_free()
 	board.capture_piece(col, row)
-	
-	
-func copy_board_state(boardState) -> Array[Array]:
-	var newBoardState: Array[Array] = []
-	for i in range(0, 8):
-		newBoardState.append([])
-		for j in range(0, 8):
-			newBoardState.append(boardState[i][j].copy());
-	return newBoardState
 	

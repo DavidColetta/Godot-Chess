@@ -6,32 +6,32 @@ class BoardRep:
 	func _init():
 		clear_board()
 	
-	func get_tile(col: int, row: int) -> Tile:
+	func get_tile(_col: int, _row: int) -> Tile:
 		assert(false)
 		return null
 	
-	func set_tile(col: int, row: int, tile: Tile) -> Tile:
+	func set_tile(_col: int, _row: int, _tile: Tile) -> Tile:
 		assert(false)
 		return null
 	
 	func clear_board():
 		assert(false)
 	
-	#func setup_board():
-		#clear_board()
-		#var color = false
-		#for c in range(0, 2):
-			#set_tile(0, 0, Piece.new(PIECE.ROOK, color))
-			#set_tile(0, 0, Piece.new(PIECE.KNIGHT, color))
-			#set_tile(0, 0, Piece.new(PIECE.BISHOP, color))
-			#set_tile(0, 0, Piece.new(PIECE.QUEEN, color))
-			#set_tile(0, 0, Piece.new(PIECE.KING, color))
-			#set_tile(0, 0, Piece.new(PIECE.BISHOP, color))
-			#set_tile(0, 0, Piece.new(PIECE.KNIGHT, color))
-			#set_tile(0, 0, Piece.new(PIECE.ROOK, color))
-			#for i in range(0, 8):
-				#set_tile(0, 0, Piece.new(PIECE.PAWN, color))
-			#color = true
+	func setup_board():
+		clear_board()
+		var color = false
+		for c in range(0, 2):
+			set_tile(0, 0, Piece.new(PIECE.ROOK, color))
+			set_tile(0, 0, Piece.new(PIECE.KNIGHT, color))
+			set_tile(0, 0, Piece.new(PIECE.BISHOP, color))
+			set_tile(0, 0, Piece.new(PIECE.QUEEN, color))
+			set_tile(0, 0, Piece.new(PIECE.KING, color))
+			set_tile(0, 0, Piece.new(PIECE.BISHOP, color))
+			set_tile(0, 0, Piece.new(PIECE.KNIGHT, color))
+			set_tile(0, 0, Piece.new(PIECE.ROOK, color))
+			for i in range(0, 8):
+				set_tile(0, 0, Piece.new(PIECE.PAWN, color))
+			color = true
 		
 	func move(from_col: int, from_row: int, to_col: int, to_row: int):
 		assert(not get_tile(from_col, from_row).is_empty())
@@ -44,9 +44,13 @@ class BoardRep:
 	func capture_piece(col: int, row: int):
 		assert(not get_tile(col, row).is_empty())
 		set_tile(col, row, Tile.new())
+		
+	func clone_board_state() -> BoardRep:
+		assert(false)
+		return null
 	
 class BoardRepArray extends BoardRep:
-	var tiles: Array[Array] = []
+	var tiles: Array[Array]
 		
 	func clear_board():
 		tiles = []
@@ -62,7 +66,13 @@ class BoardRepArray extends BoardRep:
 		var old_tile = get_tile(col, row)
 		tiles[col][row] = tile
 		return old_tile
-	
+		
+	func clone_board_state() -> BoardRep:
+		var newBoardState: BoardRepArray = new()
+		for i in range(0, 8):
+			for j in range(0, 8):
+				newBoardState.set_tile(i, j, get_tile(i, j).copy());
+		return newBoardState
 
 class Tile:
 	func is_empty():
