@@ -70,11 +70,14 @@ func _spawn_piece(col: int, row: int, piece: Enums.PIECE, color: bool):
 	var newPieceObject = piece_scene.instantiate()
 	board[col][row] = newPieceObject
 	newPieceObject.mesh = piece_models[piece]
+	newPieceObject.create_trimesh_collision()
 	newPieceObject.name = str(Enums.PIECE.keys()[piece])
 	if color:
+		newPieceObject.rotate_y(deg_to_rad(90.0))
 		newPieceObject.set_surface_override_material(0, black_mat)
 		newPieceObject.name = "BLACK_" + newPieceObject.name
 	else:
+		newPieceObject.rotate_y(deg_to_rad(-90.0))
 		newPieceObject.set_surface_override_material(0, white_mat)
 		newPieceObject.name = "WHITE_" + newPieceObject.name
 	var otherWithSameName = find_child(newPieceObject.name, false, false)
