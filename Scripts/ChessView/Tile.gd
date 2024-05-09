@@ -11,7 +11,7 @@ func _ready():
 		click_detector.right_clicked.connect(_on_right_clicked)
 
 func _on_left_clicked():
-	GameSetup.left_clicked.emit(col, row)
+	pass#GameSetup.left_clicked.emit(col, row)
 
 func _on_right_clicked():
-	GameSetup.right_clicked.emit(col, row)
+	pass#GameSetup.right_clicked.emit(col, row)

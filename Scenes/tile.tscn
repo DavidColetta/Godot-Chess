@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf060ysjxg7o"]
 
-[ext_resource type="Script" path="res://DetectClicked.gd" id="1_s1sry"]
-[ext_resource type="Script" path="res://Tile.gd" id="1_wcuh7"]
+[ext_resource type="Script" path="res://Scripts/ChessView/DetectClicked.gd" id="1_s1sry"]
+[ext_resource type="Script" path="res://Scripts/ChessView/Tile.gd" id="1_wcuh7"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_t4xhc"]
 

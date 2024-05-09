@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b5by0hlkg1ckp"
+path="res://.godot/imported/bishop.obj-5ea16cbf2db444ead25b7d49ec3ec78c.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bishop.obj-5ea16cbf2db444ead25b7d49ec3ec78c.mesh"]
+
+source_file="res://Models/bishop.obj"
+dest_files=["res://.godot/imported/bishop.obj-5ea16cbf2db444ead25b7d49ec3ec78c.mesh", "res://.godot/imported/bishop.obj-5ea16cbf2db444ead25b7d49ec3ec78c.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

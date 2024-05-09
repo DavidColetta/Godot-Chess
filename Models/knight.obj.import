@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bv4f8mlmxme1s"
+path="res://.godot/imported/knight.obj-0daf90ce1df2f71e46d42b4b922c2d6f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/knight.obj-0daf90ce1df2f71e46d42b4b922c2d6f.mesh"]
+
+source_file="res://Models/knight.obj"
+dest_files=["res://.godot/imported/knight.obj-0daf90ce1df2f71e46d42b4b922c2d6f.mesh", "res://.godot/imported/knight.obj-0daf90ce1df2f71e46d42b4b922c2d6f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2dviixqb5ybj"]
+
+[ext_resource type="Script" path="res://Scripts/ChessModel/Piece.gd" id="1_2w525"]
+
+[node name="Pawn" type="Node"]
+script = ExtResource("1_2w525")
+type = 1
