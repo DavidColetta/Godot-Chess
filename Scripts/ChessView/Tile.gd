@@ -1,17 +1,13 @@
 extends MeshInstance3D
 
+var chess_board_view
 var col: int
 var row: int
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var click_detector = $StaticBody3D
-	if click_detector:
-		click_detector.left_clicked.connect(_on_left_clicked)
-		click_detector.right_clicked.connect(_on_right_clicked)
+func on_left_clicked():
+	print("Left clicked "+name)
+	chess_board_view.left_clicked.emit(col, row)
 
-func _on_left_clicked():
-	pass#GameSetup.left_clicked.emit(col, row)
-
-func _on_right_clicked():
-	pass#GameSetup.right_clicked.emit(col, row)
+func on_right_clicked():
+	print("Right clicked "+name)
+	chess_board_view.right_clicked.emit(col, row)

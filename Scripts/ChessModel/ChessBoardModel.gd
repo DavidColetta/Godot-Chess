@@ -23,7 +23,7 @@ func _ready():
 		for j in range(0, 8):
 			board[i].append(null)
 
-func get_tile(col: int, row: int) -> Piece:
+func _get_tile(col: int, row: int) -> Piece:
 	return board[col][row]
 	
 #sets the board tile at c-r to piece object (can be null)
@@ -33,13 +33,18 @@ func _set_tile(col: int, row: int, tile: Piece):
 		tile.col = col
 		tile.row = row
 		
-func capture_piece(piece):
-	_set_tile(piece.col, piece.row, null)
+func capture_piece(col: int, row: int):
+	var piece = _get_tile(col, row)
+	_set_tile(col, row, null)
 	piece.queue_free()
-	piece_captured.emit()
+	piece_captured.emit(col, row)
 
-func move_piece(piece: Piece, target_col: int, target_row: int):
-	pass
+func move_piece(col: int, row: int, target_col: int, target_row: int):
+	if _get_tile(target_col, target_row):
+		capture_piece(target_col, target_row)
+	_set_tile(target_col, target_row, _get_tile(col, row))
+	_set_tile(col, row, null)
+	piece_moved.emit(col, row, target_col, target_row)
 
 ##white = False, black = True
 func spawn_piece(col: int, row: int, piece: Enums.PIECE, color: bool):
