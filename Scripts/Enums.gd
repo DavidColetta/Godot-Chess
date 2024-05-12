@@ -1,3 +1,5 @@
 extends Node
 
 enum PIECE {EMPTY, PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING}
+
+enum COLOR {WHITE, BLACK}

@@ -47,13 +47,13 @@ func move_piece(col: int, row: int, target_col: int, target_row: int):
 	piece_moved.emit(col, row, target_col, target_row)
 
 ##white = False, black = True
-func spawn_piece(col: int, row: int, piece: Enums.PIECE, color: bool):
+func spawn_piece(col: int, row: int, piece: Enums.PIECE, color: Enums.COLOR):
 	var newPiece = piece_scenes[piece].instantiate()
 	newPiece.color = color
 	newPiece.col = col
 	newPiece.row = row
 	newPiece.name = str(Enums.PIECE.keys()[piece])
-	if color:
+	if color == Enums.COLOR.BLACK:
 		newPiece.name = "BLACK_" + newPiece.name
 	else:
 		newPiece.name = "WHITE_" + newPiece.name
@@ -68,7 +68,7 @@ func spawn_piece(col: int, row: int, piece: Enums.PIECE, color: bool):
 	add_child(newPiece)
 	piece_spawned.emit(col, row, piece, color)
 
-func _setup_board_for_color(color: bool):
+func _setup_board_for_color(color: Enums.COLOR):
 	spawn_piece(0, int(color) * 7, Enums.PIECE.ROOK, color)
 	spawn_piece(1, int(color) * 7, Enums.PIECE.KNIGHT, color)
 	spawn_piece(2, int(color) * 7, Enums.PIECE.BISHOP, color)
@@ -82,5 +82,5 @@ func _setup_board_for_color(color: bool):
 		spawn_piece(i, 1 + (int(color) * 5), Enums.PIECE.PAWN, color)
 
 func setup_board():
-	_setup_board_for_color(false)
-	_setup_board_for_color(true)
+	_setup_board_for_color(Enums.COLOR.WHITE)
+	_setup_board_for_color(Enums.COLOR.BLACK)

@@ -10,14 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Chess"
+config/name="ChessSteam"
 run/main_scene="res://Scenes/root.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Enums="*res://Scripts/Enums.gd"
+PlayerManager="*res://Scripts/PlayerManager.gd"
 
 [filesystem]
 
@@ -49,3 +50,7 @@ right={
 [physics]
 
 3d/default_gravity=30.0
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
