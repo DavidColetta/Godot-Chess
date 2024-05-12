@@ -97,12 +97,13 @@ func _on_join_button_down():
 func _join_lobby(id: int):
 	peer = SteamMultiplayerPeer.new()
 	peer.connect_lobby(id)
+	lobbyID = id
 	multiplayer.set_multiplayer_peer(peer)
 	_hide_server_controls()
 	
 func _open_lobby_list():
 	#Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
-	Steam.addRequestLobbyListStringFilter("identify", "GridMons", Steam.LOBBY_COMPARISON_EQUAL)
+	#Steam.addRequestLobbyListStringFilter("identify", "GridMons", Steam.LOBBY_COMPARISON_EQUAL)
 	Steam.requestLobbyList()
 	
 func _on_lobby_match_list(lobbies):
