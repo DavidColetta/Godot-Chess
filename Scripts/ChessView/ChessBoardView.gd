@@ -7,7 +7,7 @@ var piece_models = [null]
 signal left_clicked(col: int, row: int)
 signal right_clicked(col: int, row: int)
 
-@onready var model: ChessBoardModel = $ChessBoardModel
+@onready var model: ChessBoardModel = $ChessBoardModel as ChessBoardModel
 
 var _selected_tile: Vector2i
 var board: Array[Array]
@@ -50,6 +50,7 @@ func _ready():
 	left_clicked.connect(_select_piece)
 	right_clicked.connect(_move_selected_piece)
 	
+func start_game():
 	model.setup_board()
 
 func _select_piece(col: int, row: int):
@@ -66,13 +67,13 @@ func _get_tile_position(col: int, row: int) -> Vector3:
 	return Vector3(-col*2*tile_width, 0, row*2*tile_width)
 
 #white = False, black = True
-func _spawn_piece(col: int, row: int, piece: Enums.PIECE, color: bool):
+func _spawn_piece(col: int, row: int, piece: Enums.PIECE, color: Enums.COLOR):
 	var newPieceObject = piece_scene.instantiate()
 	board[col][row] = newPieceObject
 	newPieceObject.mesh = piece_models[piece]
 	newPieceObject.create_trimesh_collision()
 	newPieceObject.name = str(Enums.PIECE.keys()[piece])
-	if color:
+	if color == Enums.COLOR.BLACK:
 		newPieceObject.rotate_y(deg_to_rad(90.0))
 		newPieceObject.set_surface_override_material(0, black_mat)
 		newPieceObject.name = "BLACK_" + newPieceObject.name

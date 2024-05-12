@@ -1,3 +1,4 @@
+class_name PlayerMovement
 extends CharacterBody3D
 
 
@@ -8,10 +9,16 @@ const HOLD_JUMP_GRAVITY_MULTIPLIER = 0.7
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var playerID: int
+
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 
+func _ready() -> void:
+	set_multiplayer_authority(playerID)
+
 func _unhandled_input(event: InputEvent):
+	if playerID != multiplayer.get_unique_id(): return
 	if event is InputEventMouseButton:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event.is_action_pressed("ui_cancel"):
@@ -24,6 +31,7 @@ func _unhandled_input(event: InputEvent):
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(70))
 	
 func _physics_process(delta):
+	if playerID != multiplayer.get_unique_id(): return
 	# Add the gravity.
 	if not is_on_floor():
 		if Input.is_action_pressed("ui_accept"):

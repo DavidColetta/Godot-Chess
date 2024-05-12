@@ -4,6 +4,7 @@ extends Node3D
 const RAY_LENGTH = 1000
 
 func _physics_process(_delta):
+	if get_parent().playerID != multiplayer.get_unique_id(): return
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		raycast_for_tile(MOUSE_BUTTON_LEFT)
 	elif Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):

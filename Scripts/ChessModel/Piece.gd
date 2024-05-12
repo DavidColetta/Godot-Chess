@@ -2,7 +2,7 @@ class_name Piece
 extends Node
 
 @export var type: Enums.PIECE
-var color: bool
+@export var color: Enums.COLOR
 
 var col: int
 var row: int
