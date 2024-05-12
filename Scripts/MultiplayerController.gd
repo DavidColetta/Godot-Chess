@@ -78,7 +78,7 @@ func _hosting():
 	_send_player_information.rpc_id(1, multiplayer.get_unique_id(), "Host", Enums.COLOR.WHITE)
 	
 	print("Waiting for Players")
-	_hide_server_controls()
+	#_hide_server_controls()
 	_show_start_game_controls()
 
 func _on_join_button_down():
@@ -86,6 +86,7 @@ func _on_join_button_down():
 		if $LobbyContainer/Lobbies.get_child_count() > 0:
 			for n in $LobbyContainer/Lobbies.get_children():
 				n.queue_free()
+		_open_lobby_list()
 	else:
 		peer = ENetMultiplayerPeer.new()
 		peer.create_client(Address, Port)
@@ -102,7 +103,7 @@ func _join_lobby(id: int):
 	_hide_server_controls()
 	
 func _open_lobby_list():
-	#Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
+	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	#Steam.addRequestLobbyListStringFilter("identify", "GridMons", Steam.LOBBY_COMPARISON_EQUAL)
 	Steam.requestLobbyList()
 	
