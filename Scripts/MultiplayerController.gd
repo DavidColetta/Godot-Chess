@@ -1,6 +1,6 @@
 extends Control
 
-@export var UseSteam: bool
+@onready var UseSteam = false#$"../Steam".UseSteam
 
 var lobbyID := 0
 
@@ -17,9 +17,9 @@ func _ready():
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
 	
-	if (UseSteam):
-		Steam.lobby_match_list.connect(_on_lobby_match_list)
-		_open_lobby_list()
+	#if (UseSteam):
+		#Steam.lobby_match_list.connect(_on_lobby_match_list)
+		#_open_lobby_list()
 
 #this gets called on the server and clients, when anyone connects
 func _player_connected(id: int):
@@ -47,12 +47,12 @@ func _send_player_information(id: int, username: String, color: Enums.COLOR):
 	PlayerManager.AddPlayer.rpc(id, username, color)#send new player data to all players
 
 func _on_host_button_down():
-	if (UseSteam):
-		peer = SteamMultiplayerPeer.new()
-		peer.lobby_created.connect(_on_lobby_created)
-		peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
-		#multiplayer.set_multiplayer_peer(peer) #redundant, maybe use =
-	else:
+	#if (UseSteam):
+		#peer = SteamMultiplayerPeer.new()
+		#peer.lobby_created.connect(_on_lobby_created)
+		#peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
+		##multiplayer.set_multiplayer_peer(peer) #redundant, maybe use =
+	#else:
 		peer = ENetMultiplayerPeer.new()
 		var error = peer.create_server(Port)
 		if error != OK:
@@ -64,30 +64,31 @@ func _on_host_button_down():
 		_hosting()
 
 #steam stuff
-func _on_lobby_created(connect: bool, id):
-	if connect:
-		lobbyID = id
-		Steam.setLobbyData(lobbyID, "name", Steam.getPersonaName()+"'s Lobby")
-		Steam.setLobbyData(lobbyID, "identify", "GridMons")
-		Steam.setLobbyJoinable(lobbyID, true)
-		print(lobbyID)
-		_hosting()
+#func _on_lobby_created(connect: bool, id):
+	#if connect:
+		#lobbyID = id
+		#Steam.setLobbyData(lobbyID, "name", Steam.getPersonaName()+"'s Lobby")
+		#Steam.setLobbyData(lobbyID, "identify", "GridMons")
+		#Steam.setLobbyJoinable(lobbyID, true)
+		#print(lobbyID)
+		#_hosting()
 		
 func _hosting():
 	multiplayer.set_multiplayer_peer(peer)
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	_send_player_information.rpc_id(1, multiplayer.get_unique_id(), "Host", Enums.COLOR.WHITE)
 	
 	print("Waiting for Players")
-	#_hide_server_controls()
+	_hide_server_controls()
 	_show_start_game_controls()
 
 func _on_join_button_down():
-	if UseSteam:
-		if $LobbyContainer/Lobbies.get_child_count() > 0:
-			for n in $LobbyContainer/Lobbies.get_children():
-				n.queue_free()
-		_open_lobby_list()
-	else:
+	#if UseSteam:
+		#if $LobbyContainer/Lobbies.get_child_count() > 0:
+			#for n in $LobbyContainer/Lobbies.get_children():
+				#n.queue_free()
+		#_open_lobby_list()
+	#else:
 		peer = ENetMultiplayerPeer.new()
 		peer.create_client(Address, Port)
 			
@@ -95,30 +96,31 @@ func _on_join_button_down():
 		
 		multiplayer.set_multiplayer_peer(peer)
 
-func _join_lobby(id: int):
-	peer = SteamMultiplayerPeer.new()
-	peer.connect_lobby(id)
-	lobbyID = id
-	multiplayer.set_multiplayer_peer(peer)
-	_hide_server_controls()
+#func _join_lobby(id: int):
+	#peer = SteamMultiplayerPeer.new()
+	#peer.connect_lobby(id)
+	#lobbyID = id
+	#peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	#multiplayer.set_multiplayer_peer(peer)
+	#_hide_server_controls()
 	
-func _open_lobby_list():
-	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
-	#Steam.addRequestLobbyListStringFilter("identify", "GridMons", Steam.LOBBY_COMPARISON_EQUAL)
-	Steam.requestLobbyList()
+#func _open_lobby_list():
+	#Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
+	##Steam.addRequestLobbyListStringFilter("identify", "GridMons", Steam.LOBBY_COMPARISON_EQUAL)
+	#Steam.requestLobbyList()
 	
-func _on_lobby_match_list(lobbies):
-	for lobby in lobbies:
-		var lobbyName := Steam.getLobbyData(lobby, "name")
-		var member_count := Steam.getNumLobbyMembers(lobby)
-		
-		var lobby_button := Button.new()
-		lobby_button.set_text(lobbyName + " | "+str(member_count))
-		lobby_button.size = Vector2(100, 5)
-		
-		lobby_button.connect("pressed", Callable(self, "_join_lobby").bind(lobby))
-		
-		$LobbyContainer/Lobbies.add_child(lobby_button)
+#func _on_lobby_match_list(lobbies):
+	#for lobby in lobbies:
+		#var lobbyName := Steam.getLobbyData(lobby, "name")
+		#var member_count := Steam.getNumLobbyMembers(lobby)
+		#
+		#var lobby_button := Button.new()
+		#lobby_button.set_text(lobbyName + " | "+str(member_count))
+		#lobby_button.size = Vector2(100, 5)
+		#
+		#lobby_button.connect("pressed", Callable(self, "_join_lobby").bind(lobby))
+		#
+		#$LobbyContainer/Lobbies.add_child(lobby_button)
 
 func _hide_server_controls():
 	$ServerControl.visible = false

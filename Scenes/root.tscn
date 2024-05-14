@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://sgfqqurajnx2"]
 
 [ext_resource type="Script" path="res://Scripts/ChessView/ChessBoardView.gd" id="3_f3v4r"]
-[ext_resource type="Script" path="res://Scenes/Steam.gd" id="4_1le6i"]
 [ext_resource type="Script" path="res://Scripts/ChessModel/ChessBoardModel.gd" id="4_ds3kg"]
+[ext_resource type="Script" path="res://Scenes/InitSteam.cs" id="4_lvavk"]
 [ext_resource type="Script" path="res://Scripts/MultiplayerController.gd" id="5_aulwt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iv1dn"]
@@ -62,7 +62,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("5_aulwt")
-UseSteam = true
 
 [node name="Start Game" type="Button" parent="Control"]
 layout_mode = 0
@@ -105,8 +104,8 @@ offset_bottom = 412.0
 [node name="Lobbies" type="VBoxContainer" parent="Control/LobbyContainer"]
 layout_mode = 2
 
-[node name="Steam" type="Node" parent="."]
-script = ExtResource("4_1le6i")
+[node name="InitSteam" type="Node" parent="."]
+script = ExtResource("4_lvavk")
 
 [connection signal="button_down" from="Control/Start Game" to="Control" method="_on_start_game_button_down"]
 [connection signal="button_down" from="Control/ServerControl/Host" to="Control" method="_on_host_button_down"]
