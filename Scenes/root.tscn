@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://sgfqqurajnx2"]
 
+[ext_resource type="Script" path="res://Scenes/SteamLobbyController.cs" id="3_boum8"]
 [ext_resource type="Script" path="res://Scripts/ChessView/ChessBoardView.gd" id="3_f3v4r"]
 [ext_resource type="Script" path="res://Scripts/ChessModel/ChessBoardModel.gd" id="4_ds3kg"]
-[ext_resource type="Script" path="res://Scenes/InitSteam.cs" id="4_lvavk"]
-[ext_resource type="Script" path="res://Scripts/MultiplayerController.gd" id="5_aulwt"]
+[ext_resource type="Script" path="res://Scripts/InitSteam.cs" id="4_lvavk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iv1dn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -61,7 +61,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("5_aulwt")
+script = ExtResource("3_boum8")
 
 [node name="Start Game" type="Button" parent="Control"]
 layout_mode = 0

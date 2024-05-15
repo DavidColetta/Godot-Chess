@@ -15,7 +15,7 @@
     },
     {
       "label": "build",
-      "command": "c:/Users/Coletta/Documents/Godot_v4.2.2-stable_mono_win64/Godot.exe",
+      "command": "C:\\Users\\Coletta\\Documents\\Godot_v4.2.2-stable_mono_win64\\Godot.exe",
       "type": "process",
       "args": [
         "--build-solutions",
