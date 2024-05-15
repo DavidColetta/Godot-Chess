@@ -53,6 +53,7 @@ func _on_host_button_down():
 		#peer.create_lobby()
 		##multiplayer.set_multiplayer_peer(peer) #redundant, maybe use =
 	#else:
+		peer = SteamMultiplayerPeer
 		peer = ENetMultiplayerPeer.new()
 		var error = peer.create_server(Port)
 		if error != OK:

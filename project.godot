@@ -13,12 +13,14 @@ config_version=5
 config/name="ChessSteam"
 run/main_scene="res://Scenes/root.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
 
 Enums="*res://Scripts/Enums.gd"
 PlayerManager="*res://Scripts/PlayerManager.gd"
+Globals="*res://Scripts/Globals.gd"
 
 [dotnet]
 

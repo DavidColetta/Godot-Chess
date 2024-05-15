@@ -13,7 +13,7 @@ public partial class InitSteam : Node
 		if (UseSteam) {
 			OS.SetEnvironment("SteamAppID", AppID);
 			OS.SetEnvironment("SteamGameID", AppID);
-			Steam.SteamInitEx(false);
+			Steam.SteamInit();
 		}
   }
 

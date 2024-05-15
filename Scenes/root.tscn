@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://sgfqqurajnx2"]
+[gd_scene load_steps=7 format=3 uid="uid://sgfqqurajnx2"]
 
-[ext_resource type="Script" path="res://Scenes/SteamLobbyController.cs" id="3_boum8"]
+[ext_resource type="Script" path="res://Scenes/SteamLobby.gd" id="3_bcqyg"]
 [ext_resource type="Script" path="res://Scripts/ChessView/ChessBoardView.gd" id="3_f3v4r"]
 [ext_resource type="Script" path="res://Scripts/ChessModel/ChessBoardModel.gd" id="4_ds3kg"]
-[ext_resource type="Script" path="res://Scripts/InitSteam.cs" id="4_lvavk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_iv1dn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -56,57 +55,185 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="."]
+[node name="SteamLobby" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("3_boum8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_bcqyg")
 
-[node name="Start Game" type="Button" parent="Control"]
+[node name="Create" type="Button" parent="SteamLobby"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.042
+anchor_bottom = 0.049
+offset_left = 30.0
+offset_top = 24.0
+offset_right = 119.616
+offset_bottom = 50.248
+text = "Create"
+
+[node name="LobbyName" type="TextEdit" parent="SteamLobby/Create"]
 layout_mode = 0
-offset_left = 196.0
-offset_top = 170.0
-offset_right = 378.0
-offset_bottom = 212.0
-text = "Start Game
+offset_left = 172.0
+offset_top = 4.0
+offset_right = 522.0
+offset_bottom = 43.0
+placeholder_text = "Lobby Name"
+
+[node name="Join" type="Button" parent="SteamLobby"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 97.0
+offset_right = 172.0
+offset_bottom = 161.0
+text = "Join
 "
 
-[node name="ServerControl" type="Control" parent="Control"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Host" type="Button" parent="Control/ServerControl"]
+[node name="SteamName" type="Label" parent="SteamLobby"]
 layout_mode = 0
-offset_left = 76.0
-offset_top = 66.0
-offset_right = 258.0
-offset_bottom = 108.0
-text = "Host
+offset_left = 931.0
+offset_top = 16.0
+offset_right = 1133.0
+offset_bottom = 49.0
+text = "SteamName"
+horizontal_alignment = 2
+
+[node name="Players" type="Panel" parent="SteamLobby"]
+offset_left = 39.0
+offset_top = 200.0
+offset_right = 173.0
+offset_bottom = 555.0
+
+[node name="PlayerCount" type="Label" parent="SteamLobby/Players"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Players (0)
 "
+horizontal_alignment = 1
 
-[node name="Join" type="Button" parent="Control/ServerControl"]
-layout_mode = 0
-offset_left = 321.0
-offset_top = 64.0
-offset_right = 503.0
-offset_bottom = 106.0
-text = "Join"
+[node name="RichTextLabel" type="RichTextLabel" parent="SteamLobby/Players"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 30.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LobbyContainer" type="ScrollContainer" parent="Control"]
-layout_mode = 0
-offset_left = 648.0
-offset_top = 69.0
-offset_right = 1107.0
-offset_bottom = 412.0
+[node name="Chat" type="Panel" parent="SteamLobby"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 207.0
+offset_top = 198.0
+offset_right = -225.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Lobbies" type="VBoxContainer" parent="Control/LobbyContainer"]
+[node name="Name" type="Label" parent="SteamLobby/Chat"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Players (0)
+"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SteamLobby/Chat"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 30.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LobbyList" type="Panel" parent="SteamLobby"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 207.0
+offset_top = 198.0
+offset_right = -225.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="SteamLobby/LobbyList"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Lobby List
+"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SteamLobby/LobbyList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 28.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SteamLobby/LobbyList/ScrollContainer"]
 layout_mode = 2
 
-[node name="InitSteam" type="Node" parent="."]
-script = ExtResource("4_lvavk")
+[node name="Leave" type="Button" parent="SteamLobby"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = -77.0
+offset_right = 176.0
+offset_bottom = -42.0
+grow_vertical = 0
+text = "Leave
+"
 
-[connection signal="button_down" from="Control/Start Game" to="Control" method="_on_start_game_button_down"]
-[connection signal="button_down" from="Control/ServerControl/Host" to="Control" method="_on_host_button_down"]
-[connection signal="button_down" from="Control/ServerControl/Join" to="Control" method="_on_join_button_down"]
+[node name="SendMessage" type="Button" parent="SteamLobby"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 783.0
+offset_top = -75.0
+offset_right = -228.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Send Message"
+
+[node name="MessageInput" type="TextEdit" parent="SteamLobby/SendMessage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -574.0
+offset_right = -161.0
+grow_horizontal = 2
+grow_vertical = 2
