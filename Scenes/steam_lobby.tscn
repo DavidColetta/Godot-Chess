@@ -1,0 +1,203 @@
+[gd_scene load_steps=2 format=3 uid="uid://my3assfuojjv"]
+
+[ext_resource type="Script" path="res://Scripts/SteamLobby.gd" id="1_2ahtw"]
+
+[node name="SteamLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ahtw")
+
+[node name="Create" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.042
+anchor_bottom = 0.049
+offset_left = 30.0
+offset_top = 24.0
+offset_right = 119.616
+offset_bottom = 50.248
+text = "Create"
+
+[node name="LobbyName" type="TextEdit" parent="Create"]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 4.0
+offset_right = 522.0
+offset_bottom = 43.0
+placeholder_text = "Lobby Name"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.042
+anchor_bottom = 0.049
+offset_left = 780.0
+offset_top = 120.0
+offset_right = 869.616
+offset_bottom = 146.248
+text = "Start Game"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 97.0
+offset_right = 172.0
+offset_bottom = 161.0
+text = "Join
+"
+
+[node name="SteamName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 931.0
+offset_top = 16.0
+offset_right = 1133.0
+offset_bottom = 49.0
+text = "SteamName"
+horizontal_alignment = 2
+
+[node name="Players" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 200.0
+offset_right = 173.0
+offset_bottom = 555.0
+
+[node name="PlayerCount" type="Label" parent="Players"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Players (0)
+"
+horizontal_alignment = 1
+
+[node name="PlayerList" type="RichTextLabel" parent="Players"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 30.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Chat" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 207.0
+offset_top = 198.0
+offset_right = -225.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="Chat"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "LobbyName
+"
+horizontal_alignment = 1
+
+[node name="ChatText" type="RichTextLabel" parent="Chat"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 30.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LobbyList" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 207.0
+offset_top = 198.0
+offset_right = -225.0
+offset_bottom = -94.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="LobbyList"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Lobby List
+"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="LobbyList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 28.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="VBoxContainer" parent="LobbyList/Scroll"]
+layout_mode = 2
+
+[node name="Leave" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = -77.0
+offset_right = 176.0
+offset_bottom = -42.0
+grow_vertical = 0
+text = "Leave
+"
+
+[node name="SendMessage" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 783.0
+offset_top = -75.0
+offset_right = -228.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Send Message"
+
+[node name="MessageInput" type="TextEdit" parent="SendMessage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -574.0
+offset_right = -161.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Leave" to="." method="_on_leave_pressed"]
+[connection signal="pressed" from="SendMessage" to="." method="_on_send_message_pressed"]

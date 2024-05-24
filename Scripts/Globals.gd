@@ -7,6 +7,7 @@ var is_owned: bool = false
 var steam_app_id: int = 480
 var steam_id: int = 0
 var steam_username: String = ""
+var lobby_id: int
 
 
 func _ready() -> void:
